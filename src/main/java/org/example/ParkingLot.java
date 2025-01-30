@@ -13,10 +13,25 @@ public class ParkingLot {
     }
 
     public boolean park(Vehicle vehicle) {
-        return true;
+        for(int i = 0; i < slots.length; i++) {
+            if(!slots[i].isOccupied()) {
+                slots[i].park(vehicle);
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean isFull() {
         return false;
+    }
+
+    public int getSlotNumber(Vehicle car) {
+        for(int i = 0; i < slots.length; i++) {
+            if(slots[i].isOccupied() && slots[i].getVehicle().equals(car)) {
+                return i+1;
+            }
+        }
+        return -1;
     }
 }

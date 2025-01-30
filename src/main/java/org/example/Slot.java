@@ -27,4 +27,8 @@ public class Slot {
         this.isOccupied = false;
         return false;
     }
+
+    public Object getVehicle() {
+        return vehicle;
+    }
 }

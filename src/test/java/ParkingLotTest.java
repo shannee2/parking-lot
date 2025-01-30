@@ -13,4 +13,23 @@ public class ParkingLotTest {
         assertFalse(parkingLot.isFull());
     }
 
+    @Test
+    public void testParkVehicle_InAvailableSlot() {
+        ParkingLot parkingLot = new ParkingLot(1);
+        Vehicle car1 = new Vehicle("KA-01-HH-1234", VehicleType.CAR);
+
+        assertTrue(parkingLot.park(car1));
+    }
+
+    @Test
+    public void testParkVehicle_InNearestAvailableSlot() {
+        ParkingLot parkingLot = new ParkingLot(2);
+        Vehicle car1 = new Vehicle("KA-01-HH-1234", VehicleType.CAR);
+        Vehicle car2 = new Vehicle("KA-01-HH-9999", VehicleType.CAR);
+
+        parkingLot.park(car1);
+        parkingLot.park(car2);
+        assertEquals(2, parkingLot.getSlotNumber(car2));
+    }
+
 }
