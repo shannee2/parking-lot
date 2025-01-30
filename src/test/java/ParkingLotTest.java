@@ -17,9 +17,12 @@ public class ParkingLotTest {
     @Test
     public void testParkVehicle_InAvailableSlot() {
         ParkingLot parkingLot = new ParkingLot(1);
-        Vehicle car1 = new Vehicle("KA-01-HH-1234", VehicleType.CAR);
+        Vehicle car = new Vehicle("KA-01-HH-1234", VehicleType.CAR);
 
-        assertTrue(parkingLot.park(car1));
+        parkingLot.park(car);
+        boolean isParked = parkingLot.isParked("KA-01-HH-1234");
+
+        assertTrue(isParked);
     }
 
     @Test
@@ -30,6 +33,7 @@ public class ParkingLotTest {
 
         parkingLot.park(car1);
         parkingLot.park(car2);
+
         assertEquals(2, parkingLot.getSlotNumber(car2));
     }
 
@@ -39,6 +43,7 @@ public class ParkingLotTest {
         Vehicle car1 = new Vehicle("KA-01-HH-1234", VehicleType.CAR);
 
         parkingLot.park(car1);
+
         assertTrue(parkingLot.isParked("KA-01-HH-1234"));
     }
 
@@ -50,6 +55,7 @@ public class ParkingLotTest {
 
         parkingLot.park(car1);
         parkingLot.park(car2);
+
         assertEquals(2, parkingLot.countCarsWithColor(VehicleColor.RED));
     }
 }

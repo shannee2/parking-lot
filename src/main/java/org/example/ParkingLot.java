@@ -12,23 +12,28 @@ public class ParkingLot {
         }
     }
 
-    public boolean park(Vehicle vehicle) {
-        for(int i = 0; i < slots.length; i++) {
-            if(!slots[i].isOccupied()) {
-                slots[i].park(vehicle);
-                return true;
+    public void park(Vehicle vehicle) {
+        for (Slot slot : slots) {
+            if (!slot.isOccupied()) {
+                slot.park(vehicle);
+                return;
             }
         }
-        return false;
+        throw new IllegalStateException("Parking lot is full");
     }
 
     public boolean isFull() {
-        return false;
+        for (Slot slot : slots) {
+            if (!slot.isOccupied()) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public int getSlotNumber(Vehicle car) {
         for(int i = 0; i < slots.length; i++) {
-            if(slots[i].isOccupied() && slots[i].getVehicle().equals(car)) {
+            if(slots[i].isOccupied() && slots[i].hasVehicle(car)) {
                 return i+1;
             }
         }
@@ -36,8 +41,8 @@ public class ParkingLot {
     }
 
     public boolean isParked(String registrationNumber) {
-        for(int i = 0; i < slots.length; i++) {
-            if(slots[i].isOccupied() && ((Vehicle)slots[i].getVehicle()).getRegistrationNumber().equals(registrationNumber)) {
+        for (Slot slot : slots) {
+            if (slot.isParked(registrationNumber)) {
                 return true;
             }
         }
@@ -46,8 +51,8 @@ public class ParkingLot {
 
     public int countCarsWithColor(VehicleColor vehicleColor) {
         int count = 0;
-        for(int i = 0; i < slots.length; i++) {
-            if(slots[i].isOccupied() && ((Vehicle)slots[i].getVehicle()).getColor().equals(vehicleColor)) {
+        for (Slot slot : slots) {
+            if (slot.isOccupied() && slot.hasVehicleColor(vehicleColor)) {
                 count++;
             }
         }
