@@ -43,4 +43,14 @@ public class ParkingLot {
         }
         return false;
     }
+
+    public int countCarsWithColor(VehicleColor vehicleColor) {
+        int count = 0;
+        for(int i = 0; i < slots.length; i++) {
+            if(slots[i].isOccupied() && ((Vehicle)slots[i].getVehicle()).getColor().equals(vehicleColor)) {
+                count++;
+            }
+        }
+        return count;
+    }
 }
