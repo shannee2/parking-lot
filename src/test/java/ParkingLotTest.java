@@ -32,4 +32,12 @@ public class ParkingLotTest {
         assertEquals(2, parkingLot.getSlotNumber(car2));
     }
 
+    @Test
+    public void testIfVehicleWithRegistrationNumberIsParked() {
+        ParkingLot parkingLot = new ParkingLot(1);
+        Vehicle car1 = new Vehicle("KA-01-HH-1234", VehicleType.CAR);
+
+        parkingLot.park(car1);
+        assertTrue(parkingLot.isParked("KA-01-HH-1234"));
+    }
 }

@@ -34,4 +34,13 @@ public class ParkingLot {
         }
         return -1;
     }
+
+    public boolean isParked(String registrationNumber) {
+        for(int i = 0; i < slots.length; i++) {
+            if(slots[i].isOccupied() && ((Vehicle)slots[i].getVehicle()).getRegistrationNumber().equals(registrationNumber)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

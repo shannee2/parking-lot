@@ -8,4 +8,8 @@ public class Vehicle {
     public Vehicle(String registrationNumber, VehicleType vehicleType) {
         this.registrationNumber = registrationNumber;
     }
+
+    public Object getRegistrationNumber() {
+        return registrationNumber;
+    }
 }
