@@ -18,4 +18,13 @@ public class Slot {
     public boolean isOccupied() {
         return isOccupied;
     }
+
+    public boolean unPark() {
+        if (!isOccupied) {
+            throw new IllegalStateException("Slot is already empty");
+        }
+        this.vehicle = null;
+        this.isOccupied = false;
+        return false;
+    }
 }

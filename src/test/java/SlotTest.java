@@ -10,17 +10,32 @@ public class SlotTest {
     public void testEmptySlotCreation() {
         Slot slot = new Slot(1);
 
-        boolean isOccupied = slot.isOccupied();
-
         assertFalse(slot.isOccupied());
     }
 
     @Test
-    public void testTestSlotOccupied() {
+    public void testReturnTrue_WhenSlotOccupied() {
         Slot slot = new Slot(1);
 
         slot.park(new Vehicle( "KA-01-HH-1234", VehicleType.CAR));
 
         assertTrue(slot.isOccupied());
+    }
+
+    @Test
+    public void testThrowException_WhenUnparkEmptySlot() {
+        Slot slot = new Slot(1);
+
+        assertThrows(IllegalStateException.class, () -> slot.unPark());
+    }
+
+    @Test
+    public void testSlotUnpark() {
+        Slot slot = new Slot(1);
+
+        slot.park(new Vehicle( "KA-01-HH-1234", VehicleType.CAR));
+        slot.unPark();
+
+        assertFalse(slot.isOccupied());
     }
 }
