@@ -58,4 +58,15 @@ public class ParkingLotTest {
 
         assertEquals(2, parkingLot.countCarsWithColor(VehicleColor.RED));
     }
+
+    @Test
+    public void testUnparkVehicle() {
+        ParkingLot parkingLot = new ParkingLot(1);
+        Vehicle car = new Vehicle("KA-01-HH-1234", VehicleType.CAR);
+
+        parkingLot.park(car);
+        parkingLot.unPark(car);
+
+        assertFalse(parkingLot.isParked("KA-01-HH-1234"));
+    }
 }

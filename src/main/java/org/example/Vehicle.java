@@ -16,10 +16,6 @@ public class Vehicle {
         this.color = color;
     }
 
-    public Object getColor() {
-        return color;
-    }
-
     public boolean hasRegistrationNumber(String registrationNumber) {
         return this.registrationNumber.equals(registrationNumber);
     }

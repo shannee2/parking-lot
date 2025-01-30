@@ -49,4 +49,8 @@ public class Slot {
     public boolean hasVehicleColor(VehicleColor vehicleColor) {
         return vehicle.hasColor(vehicleColor);
     }
+
+    public int getSlotNumber() {
+        return slotNumber;
+    }
 }
