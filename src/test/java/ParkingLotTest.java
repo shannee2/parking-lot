@@ -6,4 +6,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ParkingLotTest {
 
+    @Test
+    public void testParkingLotCreation() {
+        ParkingLot parkingLot = new ParkingLot(1);
+
+        assertFalse(parkingLot.isFull());
+    }
+
 }
