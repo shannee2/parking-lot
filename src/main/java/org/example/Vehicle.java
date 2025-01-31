@@ -5,6 +5,9 @@ public class Vehicle {
     private VehicleType vehicleType;
     private VehicleColor color;
 
+    public Vehicle(String registrationNumber){
+        this.registrationNumber = registrationNumber;
+    }
 
     public Vehicle(String registrationNumber, VehicleType vehicleType) {
         this.registrationNumber = registrationNumber;
@@ -22,5 +25,9 @@ public class Vehicle {
 
     public boolean hasColor(VehicleColor vehicleColor) {
         return this.color.equals(vehicleColor);
+    }
+
+    public String getRegistrationNumber() {
+        return registrationNumber;
     }
 }

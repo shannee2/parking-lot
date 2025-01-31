@@ -2,6 +2,7 @@ package org.example;
 
 public class ParkingLot {
     private final Slot[] slots;
+    private Ticket[] tickets;
     private int availableSlots;
 
     public ParkingLot(int totalSlots) {
@@ -12,17 +13,20 @@ public class ParkingLot {
         this.availableSlots = totalSlots;
     }
 
-    public void park(Vehicle vehicle) {
+    public Ticket park(Vehicle vehicle) {
         if(isFull()){
             throw new IllegalStateException("Parking lot is full");
         }
-        for (Slot slot : slots) {
-            if (!slot.isOccupied()) {
-                slot.park(vehicle);
+        for (int i = 0; i < slots.length; i++) {
+            if (!slots[i].isOccupied()) {
+                slots[i].park(vehicle);
                 availableSlots--;
-                return;
+                Ticket ticket = new Ticket(vehicle.getRegistrationNumber(), slots[i].getSlotNumber());
+                tickets[i] = ticket;
+                return ticket;
             }
         }
+        return null;
     }
 
     public boolean isFull() {
@@ -65,5 +69,6 @@ public class ParkingLot {
                 return;
             }
         }
+        throw new IllegalStateException("Vehicle not found in parking lot");
     }
 }

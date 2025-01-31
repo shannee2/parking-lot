@@ -38,14 +38,6 @@ public class Slot {
         return vehicle.equals(car);
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
-        Slot slot = (Slot) obj;
-        return slotNumber == slot.slotNumber;
-    }
-
     public boolean hasVehicleColor(VehicleColor vehicleColor) {
         return vehicle.hasColor(vehicleColor);
     }
