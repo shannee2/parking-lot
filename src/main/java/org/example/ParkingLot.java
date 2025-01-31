@@ -11,6 +11,7 @@ public class ParkingLot {
             slots[i] = new Slot(i+1);
         }
         this.availableSlots = totalSlots;
+        this.tickets = new Ticket[totalSlots];
     }
 
     public Ticket park(Vehicle vehicle) {
@@ -61,10 +62,11 @@ public class ParkingLot {
         return count;
     }
 
-    public void unPark(Vehicle car) {
-        for (Slot slot : slots) {
-            if (slot.isOccupied() && slot.hasVehicle(car)) {
-                slot.unPark();
+    public void unPark(Ticket ticket) {
+        for (int i = 0; i < tickets.length; i++) {
+            if (tickets[i].equals(ticket)) {
+                slots[i].unPark();
+                tickets[i] = null;
                 availableSlots++;
                 return;
             }

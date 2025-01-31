@@ -1,7 +1,4 @@
-import org.example.Vehicle;
-import org.example.VehicleColor;
-import org.example.VehicleType;
-import org.example.ParkingLot;
+import org.example.*;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -44,9 +41,9 @@ public class ParkingLotTest {
         Vehicle car2 = new Vehicle("KA-01-HH-9999", VehicleType.CAR);
         Vehicle car3 = new Vehicle("KA-01-HH-9998", VehicleType.CAR);
 
-        parkingLot.park(car1);
-        parkingLot.park(car2);
-        parkingLot.unPark(car1);
+        Ticket ticket1 = parkingLot.park(car1);
+        Ticket ticket2 = parkingLot.park(car2);
+        parkingLot.unPark(ticket1);
         parkingLot.park(car3);
 
         assertEquals(1, parkingLot.getSlotNumber(car3));
@@ -59,9 +56,9 @@ public class ParkingLotTest {
         Vehicle car2 = new Vehicle("KA-01-HH-9999", VehicleType.CAR);
         Vehicle car3 = new Vehicle("KA-01-HH-9998", VehicleType.CAR);
 
-        parkingLot.park(car1);
-        parkingLot.park(car2);
-        parkingLot.unPark(car2);
+        Ticket ticket1 = parkingLot.park(car1);
+        Ticket ticket2 = parkingLot.park(car2);
+        parkingLot.unPark(ticket2);
         parkingLot.park(car3);
 
         assertEquals(2, parkingLot.getSlotNumber(car3));
@@ -99,8 +96,8 @@ public class ParkingLotTest {
         ParkingLot parkingLot = new ParkingLot(1);
         Vehicle car = new Vehicle("KA-01-HH-1234", VehicleType.CAR);
 
-        parkingLot.park(car);
-        parkingLot.unPark(car);
+        Ticket ticket = parkingLot.park(car);
+        parkingLot.unPark(ticket);
 
         assertFalse(parkingLot.isParked("KA-01-HH-1234"));
     }
