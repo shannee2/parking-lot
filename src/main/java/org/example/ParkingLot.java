@@ -2,6 +2,7 @@ package org.example;
 
 import org.example.exceptions.AllSlotsOccupiedException;
 import org.example.exceptions.InvalidSlotsException;
+import org.example.exceptions.TicketNotFoundException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,8 +44,6 @@ public class ParkingLot {
         return availableSlots == 0;
     }
 
-
-
     public boolean isVehicleParked(String registrationNumber) {
         for (Slot slot : slots) {
             if (slot.isParked(registrationNumber)) {
@@ -72,6 +71,6 @@ public class ParkingLot {
                 return;
             }
         }
-        throw new IllegalStateException("Vehicle not found in parking lot");
+        throw new TicketNotFoundException();
     }
 }
