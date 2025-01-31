@@ -1,6 +1,5 @@
 import org.example.Slot;
 import org.example.Vehicle;
-import org.example.VehicleType;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -17,7 +16,7 @@ public class SlotTest {
     public void testReturnTrue_WhenSlotOccupied() {
         Slot slot = new Slot(1);
 
-        slot.park(new Vehicle( "KA-01-HH-1234", VehicleType.CAR));
+        slot.park(new Vehicle( "KA-01-HH-1234"));
 
         assertTrue(slot.isOccupied());
     }
@@ -33,7 +32,7 @@ public class SlotTest {
     public void testSlotUnpark() {
         Slot slot = new Slot(1);
 
-        slot.park(new Vehicle( "KA-01-HH-1234", VehicleType.CAR));
+        slot.park(new Vehicle( "KA-01-HH-1234"));
         slot.unPark();
 
         assertFalse(slot.isOccupied());

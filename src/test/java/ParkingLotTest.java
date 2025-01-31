@@ -14,7 +14,7 @@ public class ParkingLotTest {
     @Test
     public void testParkVehicle_InAvailableSlot() {
         ParkingLot parkingLot = new ParkingLot(1);
-        Vehicle car = new Vehicle("KA-01-HH-1234", VehicleType.CAR);
+        Vehicle car = new Vehicle("KA-01-HH-1234");
 
         parkingLot.park(car);
         boolean isParked = parkingLot.isParked("KA-01-HH-1234");
@@ -25,8 +25,8 @@ public class ParkingLotTest {
     @Test
     public void testParkVehicle_InNearestAvailableSlot() {
         ParkingLot parkingLot = new ParkingLot(2);
-        Vehicle car1 = new Vehicle("KA-01-HH-1234", VehicleType.CAR);
-        Vehicle car2 = new Vehicle("KA-01-HH-9999", VehicleType.CAR);
+        Vehicle car1 = new Vehicle("KA-01-HH-1234");
+        Vehicle car2 = new Vehicle("KA-01-HH-9999");
 
         parkingLot.park(car1);
         parkingLot.park(car2);
@@ -37,9 +37,9 @@ public class ParkingLotTest {
     @Test
     public void testParkVehicle_InNearestAvailableSlot_WithUnparkedVehicleInSlot1(){
         ParkingLot parkingLot = new ParkingLot(3);
-        Vehicle car1 = new Vehicle("KA-01-HH-1234", VehicleType.CAR);
-        Vehicle car2 = new Vehicle("KA-01-HH-9999", VehicleType.CAR);
-        Vehicle car3 = new Vehicle("KA-01-HH-9998", VehicleType.CAR);
+        Vehicle car1 = new Vehicle("KA-01-HH-1234");
+        Vehicle car2 = new Vehicle("KA-01-HH-9999");
+        Vehicle car3 = new Vehicle("KA-01-HH-9998");
 
         Ticket ticket1 = parkingLot.park(car1);
         Ticket ticket2 = parkingLot.park(car2);
@@ -52,9 +52,9 @@ public class ParkingLotTest {
     @Test
     public void testParkVehicle_InNearestAvailableSlot_WithUnparkedVehicleInSlot2(){
         ParkingLot parkingLot = new ParkingLot(3);
-        Vehicle car1 = new Vehicle("KA-01-HH-1234", VehicleType.CAR);
-        Vehicle car2 = new Vehicle("KA-01-HH-9999", VehicleType.CAR);
-        Vehicle car3 = new Vehicle("KA-01-HH-9998", VehicleType.CAR);
+        Vehicle car1 = new Vehicle("KA-01-HH-1234");
+        Vehicle car2 = new Vehicle("KA-01-HH-9999");
+        Vehicle car3 = new Vehicle("KA-01-HH-9998");
 
         Ticket ticket1 = parkingLot.park(car1);
         Ticket ticket2 = parkingLot.park(car2);
@@ -68,7 +68,7 @@ public class ParkingLotTest {
     @Test
     public void testIfVehicleWithRegistrationNumberIsParked() {
         ParkingLot parkingLot = new ParkingLot(1);
-        Vehicle car1 = new Vehicle("KA-01-HH-1234", VehicleType.CAR);
+        Vehicle car1 = new Vehicle("KA-01-HH-1234");
 
         parkingLot.park(car1);
 
@@ -78,10 +78,10 @@ public class ParkingLotTest {
     @Test
     public void testCountOfCarsWithRedColor(){
         ParkingLot parkingLot = new ParkingLot(5);
-        Vehicle car1 = new Vehicle("KA-01-HH-1234", VehicleType.CAR, VehicleColor.RED);
-        Vehicle car2 = new Vehicle("KA-01-HH-9999", VehicleType.CAR, VehicleColor.RED);
-        Vehicle car3 = new Vehicle("KA-01-HH-9998", VehicleType.CAR, VehicleColor.BLUE);
-        Vehicle car4 = new Vehicle("KA-01-HH-9997", VehicleType.CAR, VehicleColor.RED);
+        Vehicle car1 = new Vehicle("KA-01-HH-1234", VehicleColor.RED);
+        Vehicle car2 = new Vehicle("KA-01-HH-9999", VehicleColor.RED);
+        Vehicle car3 = new Vehicle("KA-01-HH-9998", VehicleColor.BLUE);
+        Vehicle car4 = new Vehicle("KA-01-HH-9997", VehicleColor.RED);
 
         parkingLot.park(car1);
         parkingLot.park(car2);
@@ -94,7 +94,7 @@ public class ParkingLotTest {
     @Test
     public void testUnparkVehicle() {
         ParkingLot parkingLot = new ParkingLot(1);
-        Vehicle car = new Vehicle("KA-01-HH-1234", VehicleType.CAR);
+        Vehicle car = new Vehicle("KA-01-HH-1234");
 
         Ticket ticket = parkingLot.park(car);
         parkingLot.unPark(ticket);
