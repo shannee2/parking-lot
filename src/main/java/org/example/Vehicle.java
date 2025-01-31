@@ -20,8 +20,4 @@ public class Vehicle {
     public boolean hasColor(VehicleColor vehicleColor) {
         return this.color.equals(vehicleColor);
     }
-
-    public String getRegistrationNumber() {
-        return registrationNumber;
-    }
 }

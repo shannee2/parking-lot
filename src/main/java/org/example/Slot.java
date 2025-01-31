@@ -1,17 +1,20 @@
 package org.example;
 
+import org.example.exceptions.SlotAlreadyOccupiedException;
+
 public class Slot {
-    private final int slotNumber;
     private Vehicle vehicle;
     private boolean isOccupied;
     private Ticket ticket;
 
-    public Slot(int slotNumber) {
-        this.slotNumber = slotNumber;
+    public Slot() {
         this.isOccupied = false;
     }
 
     public Ticket park(Vehicle vehicle) {
+        if(isOccupied) {
+            throw new SlotAlreadyOccupiedException();
+        }
         this.vehicle = vehicle;
         this.isOccupied = true;
         Ticket ticket = new Ticket();
@@ -38,16 +41,8 @@ public class Slot {
         this.isOccupied = false;
     }
 
-    public boolean hasVehicle(Vehicle car) {
-        return vehicle.equals(car);
-    }
-
     public boolean hasVehicleColor(VehicleColor vehicleColor) {
         return vehicle.hasColor(vehicleColor);
-    }
-
-    public int getSlotNumber() {
-        return slotNumber;
     }
 
     public boolean hasTicket(Ticket ticket) {

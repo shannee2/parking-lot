@@ -1,4 +1,5 @@
 import org.example.*;
+import org.example.exceptions.InvalidSlotsException;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -9,6 +10,16 @@ public class ParkingLotTest {
         ParkingLot parkingLot = new ParkingLot(1);
 
         assertFalse(parkingLot.isFull());
+    }
+
+    @Test
+    public void testThrowInvalidSlotsException_WhenParkingLotCreatedWith0Slots() {
+        assertThrows(InvalidSlotsException.class, () -> new ParkingLot(0));
+    }
+
+    @Test
+    public void testThrowInvalidSlotsException_WhenParkingLotCreatedWithNegativeSlots() {
+        assertThrows(InvalidSlotsException.class, () -> new ParkingLot(-1));
     }
 
     @Test
@@ -29,42 +40,12 @@ public class ParkingLotTest {
         Vehicle car1 = new Vehicle("KA-01-HH-1234");
         Vehicle car2 = new Vehicle("KA-01-HH-9999");
 
-        parkingLot.park(car1);
-        parkingLot.park(car2);
-
-        assertEquals(2, parkingLot.getSlotNumber(car2));
-    }
-
-    @Test
-    public void testParkVehicle_InNearestAvailableSlot_WithUnparkedVehicleInSlot1(){
-        ParkingLot parkingLot = new ParkingLot(3);
-        Vehicle car1 = new Vehicle("KA-01-HH-1234");
-        Vehicle car2 = new Vehicle("KA-01-HH-9999");
-        Vehicle car3 = new Vehicle("KA-01-HH-9998");
-
         Ticket ticket1 = parkingLot.park(car1);
         Ticket ticket2 = parkingLot.park(car2);
-        parkingLot.unPark(ticket1);
-        parkingLot.park(car3);
 
-        assertEquals(1, parkingLot.getSlotNumber(car3));
+        assertTrue(parkingLot.isVehicleParked("KA-01-HH-1234"));
+        assertTrue(parkingLot.isVehicleParked("KA-01-HH-9999"));
     }
-
-    @Test
-    public void testParkVehicle_InNearestAvailableSlot_WithUnparkedVehicleInSlot2(){
-        ParkingLot parkingLot = new ParkingLot(3);
-        Vehicle car1 = new Vehicle("KA-01-HH-1234");
-        Vehicle car2 = new Vehicle("KA-01-HH-9999");
-        Vehicle car3 = new Vehicle("KA-01-HH-9998");
-
-        Ticket ticket1 = parkingLot.park(car1);
-        Ticket ticket2 = parkingLot.park(car2);
-        parkingLot.unPark(ticket2);
-        parkingLot.park(car3);
-
-        assertEquals(2, parkingLot.getSlotNumber(car3));
-    }
-
 
     @Test
     public void testIfVehicleWithRegistrationNumberIsVehicleParked() {

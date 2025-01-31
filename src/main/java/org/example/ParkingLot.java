@@ -1,5 +1,6 @@
 package org.example;
 
+import org.example.exceptions.AllSlotsOccupiedException;
 import org.example.exceptions.InvalidSlotsException;
 
 import java.util.ArrayList;
@@ -15,37 +16,35 @@ public class ParkingLot {
         }
         slots = new ArrayList<>(totalSlots);
         for (int i = 1; i <= totalSlots; i++) {
-            slots.add(new Slot(i));
+            slots.add(new Slot());
         }
         this.availableSlots = totalSlots;
+    }
+
+    private Slot fetchNearestAvailableSlot() {
+        for (Slot slot : slots) {
+            if (!slot.isOccupied()) {
+                return slot;
+            }
+        }
+        throw new AllSlotsOccupiedException();
     }
 
     public Ticket park(Vehicle vehicle) {
         if(isFull()){
             throw new IllegalStateException("Parking lot is full");
         }
-        for (Slot slot: slots) {
-            if (!slot.isOccupied()) {
-                Ticket ticket = slot.park(vehicle);
-                availableSlots--;
-                return ticket;
-            }
-        }
-        return null;
+        Slot slot = fetchNearestAvailableSlot();
+        Ticket ticket = slot.park(vehicle);
+        availableSlots--;
+        return ticket;
     }
 
     public boolean isFull() {
         return availableSlots == 0;
     }
 
-    public int getSlotNumber(Vehicle car) {
-        for(Slot slot : slots) {
-            if(slot.isOccupied() && slot.hasVehicle(car)) {
-                return slot.getSlotNumber();
-            }
-        }
-        return -1;
-    }
+
 
     public boolean isVehicleParked(String registrationNumber) {
         for (Slot slot : slots) {
