@@ -14,10 +14,11 @@ public class ParkingLotTest {
     @Test
     public void testParkVehicle_InAvailableSlot() {
         ParkingLot parkingLot = new ParkingLot(1);
-        Vehicle car = new Vehicle("KA-01-HH-1234");
+        String registrationNumber = "KA-01-HH-1234";
+        Vehicle car = new Vehicle(registrationNumber);
 
         parkingLot.park(car);
-        boolean isParked = parkingLot.isParked("KA-01-HH-1234");
+        boolean isParked = parkingLot.isVehicleParked(registrationNumber);
 
         assertTrue(isParked);
     }
@@ -66,13 +67,13 @@ public class ParkingLotTest {
 
 
     @Test
-    public void testIfVehicleWithRegistrationNumberIsParked() {
+    public void testIfVehicleWithRegistrationNumberIsVehicleParked() {
         ParkingLot parkingLot = new ParkingLot(1);
         Vehicle car1 = new Vehicle("KA-01-HH-1234");
 
         parkingLot.park(car1);
 
-        assertTrue(parkingLot.isParked("KA-01-HH-1234"));
+        assertTrue(parkingLot.isVehicleParked("KA-01-HH-1234"));
     }
 
     @Test
@@ -99,6 +100,6 @@ public class ParkingLotTest {
         Ticket ticket = parkingLot.park(car);
         parkingLot.unPark(ticket);
 
-        assertFalse(parkingLot.isParked("KA-01-HH-1234"));
+        assertFalse(parkingLot.isVehicleParked("KA-01-HH-1234"));
     }
 }

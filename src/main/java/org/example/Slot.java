@@ -4,15 +4,19 @@ public class Slot {
     private final int slotNumber;
     private Vehicle vehicle;
     private boolean isOccupied;
+    private Ticket ticket;
 
     public Slot(int slotNumber) {
         this.slotNumber = slotNumber;
         this.isOccupied = false;
     }
 
-    public void park(Vehicle vehicle) {
+    public Ticket park(Vehicle vehicle) {
         this.vehicle = vehicle;
         this.isOccupied = true;
+        Ticket ticket = new Ticket();
+        this.ticket = ticket;
+        return ticket;
     }
 
     public boolean isOccupied() {
@@ -44,5 +48,12 @@ public class Slot {
 
     public int getSlotNumber() {
         return slotNumber;
+    }
+
+    public boolean hasTicket(Ticket ticket) {
+        if(this.ticket == null) {
+            return false;
+        }
+        return this.ticket.equals(ticket);
     }
 }

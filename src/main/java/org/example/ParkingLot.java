@@ -1,29 +1,33 @@
 package org.example;
 
+import org.example.exceptions.InvalidSlotsException;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class ParkingLot {
-    private final Slot[] slots;
-    private Ticket[] tickets;
+    private final List<Slot> slots;
     private int availableSlots;
 
     public ParkingLot(int totalSlots) {
-        slots = new Slot[totalSlots];
-        for (int i = 0; i < totalSlots; i++) {
-            slots[i] = new Slot(i+1);
+        if (totalSlots <= 0) {
+            throw new InvalidSlotsException();
+        }
+        slots = new ArrayList<>(totalSlots);
+        for (int i = 1; i <= totalSlots; i++) {
+            slots.add(new Slot(i));
         }
         this.availableSlots = totalSlots;
-        this.tickets = new Ticket[totalSlots];
     }
 
     public Ticket park(Vehicle vehicle) {
         if(isFull()){
             throw new IllegalStateException("Parking lot is full");
         }
-        for (int i = 0; i < slots.length; i++) {
-            if (!slots[i].isOccupied()) {
-                slots[i].park(vehicle);
+        for (Slot slot: slots) {
+            if (!slot.isOccupied()) {
+                Ticket ticket = slot.park(vehicle);
                 availableSlots--;
-                Ticket ticket = new Ticket(vehicle.getRegistrationNumber(), slots[i].getSlotNumber());
-                tickets[i] = ticket;
                 return ticket;
             }
         }
@@ -43,7 +47,7 @@ public class ParkingLot {
         return -1;
     }
 
-    public boolean isParked(String registrationNumber) {
+    public boolean isVehicleParked(String registrationNumber) {
         for (Slot slot : slots) {
             if (slot.isParked(registrationNumber)) {
                 return true;
@@ -63,10 +67,9 @@ public class ParkingLot {
     }
 
     public void unPark(Ticket ticket) {
-        for (int i = 0; i < tickets.length; i++) {
-            if (tickets[i].equals(ticket)) {
-                slots[i].unPark();
-                tickets[i] = null;
+        for (Slot slot : slots) {
+            if (slot.isOccupied() && slot.hasTicket(ticket)) {
+                slot.unPark();
                 availableSlots++;
                 return;
             }
