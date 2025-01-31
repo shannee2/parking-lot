@@ -76,11 +76,12 @@ public class ParkingLotTest {
     @Test
     public void testUnparkVehicle() {
         ParkingLot parkingLot = new ParkingLot(1);
-        Vehicle car = new Vehicle("KA-01-HH-1234");
 
+        String registrationNumber = "KA-01-HH-1234";
+        Vehicle car = new Vehicle(registrationNumber);
         Ticket ticket = parkingLot.park(car);
         parkingLot.unPark(ticket);
 
-        assertFalse(parkingLot.isVehicleParked("KA-01-HH-1234"));
+        assertFalse(parkingLot.isVehicleParked(registrationNumber));
     }
 }
