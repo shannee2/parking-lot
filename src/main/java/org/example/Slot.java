@@ -1,6 +1,7 @@
 package org.example;
 
 import org.example.exceptions.SlotAlreadyOccupiedException;
+import org.example.exceptions.SlotUnoccupiedException;
 
 public class Slot {
     private Vehicle vehicle;
@@ -35,7 +36,7 @@ public class Slot {
 
     public void unPark() {
         if (!isOccupied) {
-            throw new IllegalStateException("Slot is already empty");
+            throw new SlotUnoccupiedException();
         }
         this.vehicle = null;
         this.isOccupied = false;

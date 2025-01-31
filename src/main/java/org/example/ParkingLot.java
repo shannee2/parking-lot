@@ -5,6 +5,7 @@ import org.example.exceptions.InvalidSlotsException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 public class ParkingLot {
     private final List<Slot> slots;
@@ -15,9 +16,7 @@ public class ParkingLot {
             throw new InvalidSlotsException();
         }
         slots = new ArrayList<>(totalSlots);
-        for (int i = 1; i <= totalSlots; i++) {
-            slots.add(new Slot());
-        }
+        IntStream.range(0, totalSlots).forEach(i -> slots.add(new Slot()));
         this.availableSlots = totalSlots;
     }
 
@@ -32,7 +31,7 @@ public class ParkingLot {
 
     public Ticket park(Vehicle vehicle) {
         if(isFull()){
-            throw new IllegalStateException("Parking lot is full");
+            throw new AllSlotsOccupiedException();
         }
         Slot slot = fetchNearestAvailableSlot();
         Ticket ticket = slot.park(vehicle);

@@ -1,7 +1,7 @@
 import org.example.Slot;
 import org.example.Vehicle;
-import org.example.VehicleColor;
 import org.example.exceptions.SlotAlreadyOccupiedException;
+import org.example.exceptions.SlotUnoccupiedException;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -36,7 +36,7 @@ public class SlotTest {
     public void testThrowException_WhenUnparkEmptySlot() {
         Slot slot = new Slot();
 
-        assertThrows(IllegalStateException.class, () -> slot.unPark());
+        assertThrows(SlotUnoccupiedException.class, () -> slot.unPark());
     }
 
     @Test
