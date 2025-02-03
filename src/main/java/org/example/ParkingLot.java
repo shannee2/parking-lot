@@ -21,6 +21,10 @@ public class ParkingLot {
         this.availableSlots = totalSlots;
     }
 
+    public ParkingLot(List<Slot> slots) {
+        this.slots = slots;
+        this.availableSlots = (int) slots.stream().filter(slot -> !slot.isOccupied()).count();
+    }
     private Slot fetchNearestAvailableSlot() {
         for (Slot slot : slots) {
             if (!slot.isOccupied()) {
@@ -56,7 +60,7 @@ public class ParkingLot {
     public int countCarsWithColor(VehicleColor vehicleColor) {
         int count = 0;
         for (Slot slot : slots) {
-            if (slot.isOccupied() && slot.hasVehicleColor(vehicleColor)) {
+            if (slot.hasVehicleColor(vehicleColor)) {
                 count++;
             }
         }
@@ -65,7 +69,7 @@ public class ParkingLot {
 
     public void unPark(Ticket ticket) {
         for (Slot slot : slots) {
-            if (slot.isOccupied() && slot.hasTicket(ticket)) {
+            if (slot.hasTicket(ticket)) {
                 slot.unPark();
                 availableSlots++;
                 return;
@@ -73,4 +77,5 @@ public class ParkingLot {
         }
         throw new TicketNotFoundException();
     }
+
 }

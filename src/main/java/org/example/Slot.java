@@ -43,13 +43,10 @@ public class Slot {
     }
 
     public boolean hasVehicleColor(VehicleColor vehicleColor) {
-        return vehicle.hasColor(vehicleColor);
+        return vehicle != null && vehicle.hasColor(vehicleColor);
     }
 
     public boolean hasTicket(Ticket ticket) {
-        if(this.ticket == null) {
-            return false;
-        }
-        return this.ticket.equals(ticket);
+        return this.ticket != null && this.ticket.equals(ticket);
     }
 }
