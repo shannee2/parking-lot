@@ -52,7 +52,7 @@ public class ParkingLotTest {
         Vehicle car2 = new Vehicle("KA-01-HH-9999");
 
         parkingLot.park(car1);
-        assertFalse(slot2.isOccupied());
+        assertTrue(slot1.isOccupied());
         parkingLot.park(car2);
         assertTrue(slot2.isOccupied());
     }
@@ -68,8 +68,9 @@ public class ParkingLotTest {
         Vehicle car3 = new Vehicle("KA-01-HH-9998");
 
         Ticket ticket1 = parkingLot.park(car1);
-        parkingLot.park(car2);
         assertTrue(slot1.isOccupied());
+        parkingLot.park(car2);
+        assertTrue(slot2.isOccupied());
         parkingLot.unPark(ticket1);
         assertFalse(slot1.isOccupied());
         parkingLot.park(car3);

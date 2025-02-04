@@ -5,11 +5,14 @@ import org.example.exceptions.InvalidSlotsException;
 import org.example.exceptions.TicketNotFoundException;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.IntStream;
 
 public class ParkingLot {
     private final List<Slot> slots;
+    private Map<Ticket, Slot> map;
     private int availableSlots;
 
     public ParkingLot(int totalSlots) {
@@ -19,13 +22,19 @@ public class ParkingLot {
         slots = new ArrayList<>(totalSlots);
         IntStream.range(0, totalSlots).forEach(i -> slots.add(new Slot()));
         this.availableSlots = totalSlots;
+        map = new HashMap<>();
     }
 
     public ParkingLot(List<Slot> slots) {
         this.slots = slots;
         this.availableSlots = (int) slots.stream().filter(slot -> !slot.isOccupied()).count();
+        map = new HashMap<>();
     }
+
     private Slot fetchNearestAvailableSlot() {
+        if(isFull()){
+            throw new AllSlotsOccupiedException();
+        }
         for (Slot slot : slots) {
             if (!slot.isOccupied()) {
                 return slot;
@@ -35,11 +44,10 @@ public class ParkingLot {
     }
 
     public Ticket park(Vehicle vehicle) {
-        if(isFull()){
-            throw new AllSlotsOccupiedException();
-        }
         Slot slot = fetchNearestAvailableSlot();
-        Ticket ticket = slot.park(vehicle);
+        Ticket ticket = new Ticket();
+        slot.park(vehicle);
+        map.put(ticket, slot);
         availableSlots--;
         return ticket;
     }
@@ -68,9 +76,11 @@ public class ParkingLot {
     }
 
     public void unPark(Ticket ticket) {
-        for (Slot slot : slots) {
-            if (slot.hasTicket(ticket)) {
+        for(Ticket t: map.keySet()){
+            if(t == ticket){
+                Slot slot = map.get(t);
                 slot.unPark();
+                map.remove(t);
                 availableSlots++;
                 return;
             }

@@ -6,21 +6,17 @@ import org.example.exceptions.SlotUnoccupiedException;
 public class Slot {
     private Vehicle vehicle;
     private boolean isOccupied;
-    private Ticket ticket;
 
     public Slot() {
         this.isOccupied = false;
     }
 
-    public Ticket park(Vehicle vehicle) {
+    public void park(Vehicle vehicle) {
         if(isOccupied) {
             throw new SlotAlreadyOccupiedException();
         }
         this.vehicle = vehicle;
         this.isOccupied = true;
-        Ticket ticket = new Ticket();
-        this.ticket = ticket;
-        return ticket;
     }
 
     public boolean isOccupied() {
@@ -44,9 +40,5 @@ public class Slot {
 
     public boolean hasVehicleColor(VehicleColor vehicleColor) {
         return vehicle != null && vehicle.hasColor(vehicleColor);
-    }
-
-    public boolean hasTicket(Ticket ticket) {
-        return this.ticket != null && this.ticket.equals(ticket);
     }
 }
