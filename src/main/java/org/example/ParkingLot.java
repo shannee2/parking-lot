@@ -12,7 +12,7 @@ import java.util.stream.IntStream;
 
 public class ParkingLot {
     private final List<Slot> slots;
-    private final Map<Ticket, Slot> map;
+    private final Map<Ticket, Slot> ticketSlotMap;
 
     public ParkingLot(int totalSlots) {
         if (totalSlots <= 0) {
@@ -20,12 +20,12 @@ public class ParkingLot {
         }
         slots = new ArrayList<>(totalSlots);
         IntStream.range(0, totalSlots).forEach(i -> slots.add(new Slot()));
-        map = new HashMap<>();
+        ticketSlotMap = new HashMap<>();
     }
 
     public ParkingLot(List<Slot> slots) {
         this.slots = slots;
-        map = new HashMap<>();
+        ticketSlotMap = new HashMap<>();
     }
 
     private Slot fetchNearestAvailableSlot() {
@@ -41,7 +41,7 @@ public class ParkingLot {
         Slot slot = fetchNearestAvailableSlot();
         Ticket ticket = new Ticket();
         slot.park(vehicle);
-        map.put(ticket, slot);
+        ticketSlotMap.put(ticket, slot);
         return ticket;
     }
 
@@ -65,13 +65,11 @@ public class ParkingLot {
     }
 
     public void unPark(Ticket ticket) {
-        for(Ticket t: map.keySet()){
-            if(t == ticket){
-                Slot slot = map.get(t);
-                slot.unPark();
-                map.remove(t);
-                return;
-            }
+        if(ticketSlotMap.containsKey(ticket)){
+            Slot slot = ticketSlotMap.get(ticket);
+            slot.unPark();
+            ticketSlotMap.remove(ticket);
+            return;
         }
         throw new TicketNotFoundException();
     }
