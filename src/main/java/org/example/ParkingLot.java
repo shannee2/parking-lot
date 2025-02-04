@@ -12,8 +12,7 @@ import java.util.stream.IntStream;
 
 public class ParkingLot {
     private final List<Slot> slots;
-    private Map<Ticket, Slot> map;
-    private int availableSlots;
+    private final Map<Ticket, Slot> map;
 
     public ParkingLot(int totalSlots) {
         if (totalSlots <= 0) {
@@ -21,20 +20,15 @@ public class ParkingLot {
         }
         slots = new ArrayList<>(totalSlots);
         IntStream.range(0, totalSlots).forEach(i -> slots.add(new Slot()));
-        this.availableSlots = totalSlots;
         map = new HashMap<>();
     }
 
     public ParkingLot(List<Slot> slots) {
         this.slots = slots;
-        this.availableSlots = (int) slots.stream().filter(slot -> !slot.isOccupied()).count();
         map = new HashMap<>();
     }
 
     private Slot fetchNearestAvailableSlot() {
-        if(isFull()){
-            throw new AllSlotsOccupiedException();
-        }
         for (Slot slot : slots) {
             if (!slot.isOccupied()) {
                 return slot;
@@ -48,12 +42,7 @@ public class ParkingLot {
         Ticket ticket = new Ticket();
         slot.park(vehicle);
         map.put(ticket, slot);
-        availableSlots--;
         return ticket;
-    }
-
-    public boolean isFull() {
-        return availableSlots == 0;
     }
 
     public boolean isVehicleParked(String registrationNumber) {
@@ -81,7 +70,6 @@ public class ParkingLot {
                 Slot slot = map.get(t);
                 slot.unPark();
                 map.remove(t);
-                availableSlots++;
                 return;
             }
         }

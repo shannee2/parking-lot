@@ -15,9 +15,7 @@ public class ParkingLotTest {
 
     @Test
     public void testParkingLotCreation() {
-        ParkingLot parkingLot = new ParkingLot(1);
-
-        assertFalse(parkingLot.isFull());
+        assertDoesNotThrow(()->new ParkingLot(1));
     }
 
     @Test
